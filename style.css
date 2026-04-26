@@ -592,7 +592,7 @@ img  { display: block; max-width: 100%; }
 }
 
 .slider-outer {
-  /* scroll-snap: 1 card penuh per slide, card di-center, tidak ada card lain yang terlihat */
+  /* scroll-snap: 1 card penuh per slide, tidak ada clip vertikal */
   overflow-x: auto;
   overflow-y: visible;
   scroll-snap-type: x mandatory;
@@ -601,10 +601,10 @@ img  { display: block; max-width: 100%; }
   max-width: 860px;
   width: 100%;
   margin: 0 auto;
-  /* Hapus padding agar card mengisi penuh dan card berikutnya tidak terlihat */
-  padding: 0 0 4px;
+  padding: 0 24px 4px;
   box-sizing: border-box;
   cursor: grab;
+  /* Simpan lebar slider sebagai CSS variable untuk dipakai card */
   container-type: inline-size;
 }
 .slider-outer::-webkit-scrollbar { display: none; } /* Chrome/Safari */
@@ -613,7 +613,8 @@ img  { display: block; max-width: 100%; }
 .slider-track {
   display: flex;
   align-items: flex-start;      /* tinggi card ikuti konten masing-masing, tidak di-stretch paksa */
-  gap: 0;
+  gap: 0;                       /* gap 0 agar snap bekerja presisi; jarak visual diatur via card padding */
+  /* Lebar track mengembang sesuai jumlah card */
   width: max-content;
 }
 
@@ -652,20 +653,22 @@ img  { display: block; max-width: 100%; }
   box-shadow: 0 0 10px rgba(212,134,140,.4);
 }
 
-/* Project cards — 1 card penuh per slide, scroll-snap center */
+/* Project cards — 1 card penuh per slide, scroll-snap */
 .project-card {
   /*
-    Lebar card = 100% lebar container (100cqi).
-    scroll-snap-align: center memastikan card tepat di tengah dan
-    card sebelum/sesudahnya tidak terlihat sama sekali.
+    Lebar card = 100% lebar container dikurangi gap kanan (32px).
+    Gap kanan = margin-right di bawah, fungsinya memisahkan card berikutnya
+    agar tidak terlihat di layar saat posisi snap.
+    Karena card + margin = 100cqi, snap selalu berhenti tepat di awal card berikutnya.
   */
-  flex: 0 0 100cqi;
-  width: 100cqi;
-  max-width: 796px;
+  flex: 0 0 calc(100cqi - 32px);
+  width: calc(100cqi - 32px);
+  max-width: 812px;
   min-width: 0;
-  margin-right: 0;
-  /* scroll-snap: card berhenti tepat di tengah container */
-  scroll-snap-align: center;
+  /* Jarak 32px ke card berikutnya — ini yang menyembunyikan card selanjutnya */
+  margin-right: 32px;
+  /* scroll-snap: card berhenti tepat di kiri container */
+  scroll-snap-align: start;
   scroll-snap-stop: always;
   /* layout flex column agar body stretch */
   display: flex;
@@ -688,15 +691,15 @@ img  { display: block; max-width: 100%; }
 @media (max-width: 768px) {
   .slider-arrows-right { position: static; }
   .slider-bottom-row { flex-direction: column; gap: 1rem; }
-  .slider-outer { padding: 0 0 4px; }
+  .slider-outer { padding: 0 16px 4px; }
 }
 
 @media (max-width: 480px) {
-  .slider-outer { padding: 0 0 4px; }
+  .slider-outer { padding: 0 12px 4px; }
 }
 
 @media (max-width: 360px) {
-  .slider-outer { padding: 0 0 4px; }
+  .slider-outer { padding: 0 8px 4px; }
 }
 
 .project-card:hover {
@@ -1176,6 +1179,8 @@ img  { display: block; max-width: 100%; }
   .skill-icon { font-size: 1.8rem; }
   .skill-item-label { font-size: .55rem; letter-spacing: .1em; }
 
+  /* Slider padding lebih kecil di HP */
+  .slider-outer { padding: 0 12px 4px; }
 }
 
 /* HP sangat kecil (≤ 360px) */
@@ -1190,4 +1195,6 @@ img  { display: block; max-width: 100%; }
     padding: 1rem .4rem;
   }
   .skill-icon { font-size: 1.6rem; }
+
+  .slider-outer { padding: 0 8px 4px; }
 }
