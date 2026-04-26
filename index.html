@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio | Diandrazhas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Josefin+Sans:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            blush: '#e8b4b8',
+            rose:  '#d4868c',
+            petal: '#f5dde0',
+            cream: '#faf7f5',
+            noir:  '#1a1a1a',
+            ash:   '#3d3d3d',
+          },
+          fontFamily: {
+            display: ['"Cormorant Garamond"', 'serif'],
+            script:  ['"Great Vibes"', 'cursive'],
+            sans:    ['"Josefin Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="font-sans bg-cream text-noir overflow-x-hidden">
+
+  <!-- ═══════════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════════ -->
+  <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#home" class="logo-mark-wrap logo-glow" aria-label="Zhasee Home">
+        <span class="logo-mark-svg">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer ring -->
+            <circle cx="22" cy="22" r="20.5" stroke="url(#lg1)" stroke-width="1"/>
+            <!-- Inner accent ring -->
+            <circle cx="22" cy="22" r="16" stroke="url(#lg2)" stroke-width="0.5" stroke-dasharray="2 3"/>
+            <!-- Z monogram -->
+            <text x="22" y="27.5" text-anchor="middle"
+              font-family="'Great Vibes', cursive"
+              font-size="18" fill="url(#lg3)" letter-spacing="0">Z</text>
+            <!-- Top dot accent -->
+            <circle cx="22" cy="5" r="1.5" fill="url(#lg1)"/>
+            <!-- Bottom dot accent -->
+            <circle cx="22" cy="39" r="1.5" fill="url(#lg1)"/>
+            <defs>
+              <linearGradient id="lg1" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#e8b4b8"/>
+                <stop offset="50%" stop-color="#d4868c"/>
+                <stop offset="100%" stop-color="#b86070"/>
+              </linearGradient>
+              <linearGradient id="lg2" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#e8b4b8" stop-opacity="0.6"/>
+                <stop offset="100%" stop-color="#d4868c" stop-opacity="0.2"/>
+              </linearGradient>
+              <linearGradient id="lg3" x1="8" y1="12" x2="36" y2="34" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="100%" stop-color="#e8b4b8"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+        <span class="logo-mark-text">
+          <span class="logo-mark-name">Zhaskia</span>
+          <span class="logo-mark-sub">Profile</span>
+        </span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="#home"    class="nav-link">Home</a>
+        <a href="#about"   class="nav-link">About</a>
+        <a href="#projects"class="nav-link">Project</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <!-- Hamburger -->
+      <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Toggle Menu">
+        <span class="ham-bar"></span>
+        <span class="ham-bar"></span>
+        <span class="ham-bar"></span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-blush/30 px-6 py-4 flex flex-col gap-3">
+      <a href="#home"    class="mobile-nav-link" onclick="closeMobileMenu()">Home</a>
+      <a href="#about"   class="mobile-nav-link" onclick="closeMobileMenu()">About</a>
+      <a href="#projects"class="mobile-nav-link" onclick="closeMobileMenu()">Project</a>
+      <a href="#contact" class="mobile-nav-link" onclick="closeMobileMenu()">Contact</a>
+    </div>
+  </header>
+
+
+  <!-- ═══════════════════════════════════════════
+       HERO SECTION — FULL CENTER, CHIC DARK
+  ═══════════════════════════════════════════ -->
+  <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+
+    <!-- ── Layered chic background ── -->
+    <div class="hero-chic-bg absolute inset-0"></div>
+
+    <!-- Diagonal gradient sweep -->
+    <div class="hero-sweep absolute inset-0"></div>
+
+    <!-- Noise grain -->
+    <div class="noise absolute inset-0 opacity-20 pointer-events-none"></div>
+
+    <!-- Floating orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Thin grid lines -->
+    <div class="hero-grid absolute inset-0 pointer-events-none"></div>
+
+    <!-- Decorative rule lines -->
+    <div class="hero-rule-top"></div>
+    <div class="hero-rule-bottom"></div>
+
+    <!-- Rotating sunburst (subtle) -->
+    <div class="sunburst absolute opacity-10" style="width:420px;height:420px;top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+
+    <!-- ── Centered Content ── -->
+    <div class="relative z-10 text-center px-6 max-w-5xl mx-auto pt-24 pb-16">
+
+      <!-- eyebrow -->
+      <p class="font-sans text-[0.6rem] tracking-[0.55em] text-blush/80 uppercase mb-8 fade-up" style="animation-delay:.1s">
+        ✦ &nbsp; Welcome to My Portfolio &nbsp; ✦
+      </p>
+
+      <!-- main script title -->
+      <h1 class="font-script hero-script-title fade-up" style="animation-delay:.25s">
+         Hi Everyone!
+      </h1>
+
+      <!-- serif sub-title -->
+      <div class="hero-divider fade-up" style="animation-delay:.4s">
+        <span class="hero-divider-line"></span>
+        <span class="font-sans text-[0.55rem] tracking-[0.5em] text-blush/60 uppercase px-4">Public Relations | Digital Communication | Tech Background</span>
+        <span class="hero-divider-line"></span>
+      </div>
+
+      <!-- description -->
+      <p class="font-display text-base md:text-lg text-white/50 font-light max-w-xl mx-auto leading-relaxed mb-10 fade-up" style="animation-delay:.65s">
+        “Connecting technology with impactful communication.”
+      </p>
+
+      <!-- CTA buttons -->
+      <div class="flex flex-wrap justify-center gap-4 fade-up" style="animation-delay:.8s">
+        <a href="#about"    class="btn-outline-light">More Details</a>
+      </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2">
+      <div class="scroll-dot"></div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       QUOTE STRIP
+  ═══════════════════════════════════════════ -->
+  <div class="quote-strip py-10 px-6 text-center relative overflow-hidden">
+    <div class="noise absolute inset-0 opacity-20 pointer-events-none"></div>
+    <p class="font-display text-xl md:text-3xl font-light text-white tracking-wide relative z-10">
+      ✦ Get to 
+      <span class="font-script text-3xl md:text-4xl text-blush ml-2">Know Me ✦</span>
+    </p>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       ABOUT ME
+  ═══════════════════════════════════════════ -->
+  <section id="about" class="py-24 px-6 about-bg relative overflow-hidden">
+    <div class="deco-circle deco-1"></div>
+    <div class="deco-circle deco-2"></div>
+
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center relative z-10">
+      <!-- Image -->
+      <div class="about-img-wrap reveal-left">
+        <div class="about-img-frame">
+          <img src="imageprofil.jpeg"
+               alt="About Me" class="about-img" />
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="reveal-right">
+        <p class="font-sans text-xs tracking-[0.35em] text-rose uppercase mb-3">About Me</p>
+        <h2 class="font-display text-5xl md:text-6xl font-light italic text-noir mb-6 leading-tight">
+          Diandra<br/><span class="font-script text-rose">Zhaskia Amelia</span>
+        </h2>
+        <p class="font-display text-base md:text-lg text-ash/80 font-light leading-relaxed mb-6">
+          Saya berfokus pada pengembangan strategi komunikasi di bidang Public Relations dan Digital Communication. Dengan latar belakang Sistem Informasi Jaringan dan Aplikasi (IT), saya memiliki pola pikir terstruktur, analitis, dan adaptif terhadap perkembangan teknologi digital.
+        <p class="font-display text-base text-ash/70 font-light leading-relaxed mb-8">
+         Perpaduan ini mengajarkan saya untuk merancang komunikasi yang tidak hanya kreatif, tetapi juga berbasis data dan terarah. Transisi dari IT ke PR memberi saya sudut pandang menyeluruh dalam mengintegrasikan strategi komunikasi dengan solusi digital, sehingga mampu menghasilkan pesan yang <em>relevan</em>, <em>efektif</em>, dan <em>berdampak</em>.
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       SKILLS & TOOLS SECTION
+  ═══════════════════════════════════════════ -->
+  <section id="skills" class="py-24 px-6 skills-bg relative overflow-hidden">
+    <div class="deco-circle deco-2"></div>
+    <div class="max-w-5xl mx-auto relative z-10">
+
+      <!-- Heading -->
+      <div class="text-center mb-12 reveal-up">
+        <p class="font-sans text-xs tracking-[0.35em] text-blush/70 uppercase mb-3">My Expertise</p>
+        <h2 class="font-display text-5xl md:text-6xl font-light italic text-white mb-4">
+          Skills &amp; <span class="font-script text-rose">Tools</span>
+        </h2>
+        <div class="skills-title-rule">
+          <span class="proj-rule-line"></span>
+          <span class="proj-rule-diamond">✦</span>
+          <span class="proj-rule-line"></span>
+        </div>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div class="flex justify-center flex-wrap gap-3 mb-10 reveal-up" id="skill-tabs">
+        <button class="skill-tab-btn active" data-tab="development">
+          <i class="fas fa-code mr-2"></i>Development
+        </button>
+        <button class="skill-tab-btn" data-tab="design">
+          <i class="fas fa-paint-brush mr-2"></i>Design
+        </button>
+        <button class="skill-tab-btn" data-tab="softskills">
+          <i class="fas fa-brain mr-2"></i>Soft Skills
+        </button>
+      </div>
+
+      <!-- Tab Panels -->
+      <div id="skills-panels">
+
+        <!-- Development -->
+        <div class="skill-panel active" data-panel="development">
+          <div class="skills-grid reveal-up">
+            <div class="skill-item-card">
+              <i class="fab fa-html5 skill-icon" style="color:#3e78d0"></i>
+              <span class="skill-item-label">HTML & CSS</span>
+            </div>
+            <div class="skill-item-card">
+              <i class="fab fa-java skill-icon" style="color:#f89820"></i>
+              <span class="skill-item-label">Basic Javascript</span>
+            </div>
+            <div class="skill-item-card">
+              <i class="fas fa-database skill-icon" style="color:#00758f"></i>
+              <span class="skill-item-label">MySQL</span>
+            </div>
+            <div class="skill-item-card">
+              <i class="fab fa-php skill-icon" style="color:#787cb4"></i>
+              <span class="skill-item-label">PHP</span>
+            </div>
+            <div class="skill-item-card">
+              <i class="fas fa-cogs skill-icon" style="color:#9FBFEF"></i>
+              <span class="skill-item-label">Basic IoT</span>
+            </div>
+            <div class="skill-item-card">
+              <i class="fab fa-python skill-icon" style="color:#3776AB"></i>
+              <span class="skill-item-label">Basic Phython</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Design -->
+        <div class="skill-panel" data-panel="design">
+          <div class="skills-grid reveal-up">
+            <div class="skill-item-card">
+              <i class="fas fa-palette skill-icon" style="color:#00c4cc"></i>
+              <span class="skill-item-label">Canva</span>
+            </div>
+            <div class="skill-item-card">
+              <i class="fas fa-film skill-icon" style="color:#1c1c1c"></i>
+              <span class="skill-item-label">CapCut</span>
+            </div>
+            <div class="skill-item-card">
+              <i class="fas fa-file-alt skill-icon" style="color:#d83b01"></i>
+              <span class="skill-item-label">Microsoft Office</span>
+            </div>
+            <div class="skill-item-card">
+              <i class="fas fa-diagram-project skill-icon" style="color:#f08705"></i>
+              <span class="skill-item-label">Draw.io</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Soft Skills -->
+        <div class="skill-panel" data-panel="softskills">
+          <div class="skills-grid-soft reveal-up">
+            <div class="skill-item-card">
+              <i class="fas fa-search skill-icon" style="color:#5c9bd6"></i>
+              <span class="skill-item-label">Detail-Oriented</span>
+            </div>
+            <div class="skill-item-card">
+              <i class="fas fa-magic skill-icon" style="color:#d4868c"></i>
+              <span class="skill-item-label">Creative Thinking &amp; Design</span>
+            </div>
+            <div class="skill-item-card">
+              <i class="fas fa-medal skill-icon" style="color:#e6a817"></i>
+              <span class="skill-item-label">Disciplined & Adaptability</span>
+            </div>
+            <div class="skill-item-card">
+              <i class="fas fa-clock skill-icon" style="color:#48b478"></i>
+              <span class="skill-item-label">Time Management</span>
+            </div>
+            <div class="skill-item-card">
+              <i class="fas fa-users skill-icon" style="color:#a06cd5"></i>
+              <span class="skill-item-label">Team Collaboration</span>
+            </div>
+            <div class="skill-item-card">
+              <i class="fas fa-lightbulb skill-icon" style="color:#f5a623"></i>
+              <span class="skill-item-label">Problem Solving</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /skills-panels -->
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       PROJECTS – SLIDING CARDS
+  ═══════════════════════════════════════════ -->
+  <section id="projects" class="py-24 projects-bg relative overflow-hidden">
+    <div class="noise absolute inset-0 opacity-10 pointer-events-none"></div>
+    <div class="projects-shimmer"></div>
+
+    <!-- Centered heading -->
+    <div class="max-w-7xl mx-auto px-6 mb-12 reveal-up relative z-10 text-center">
+      <p class="font-sans text-xs tracking-[0.35em] text-rose uppercase mb-3">Explore</p>
+      <h2 class="font-display text-5xl md:text-6xl font-light italic text-noir leading-tight">
+        My Work<br/>
+        <span class="font-script text-rose" style="font-size:clamp(2.8rem,7vw,5rem)">Projects</span>
+      </h2>
+      <p class="font-sans text-xs tracking-[0.28em] text-rose/50 uppercase mt-3 mb-2">Showcase</p>
+      <div class="projects-title-rule">
+        <span class="proj-rule-line"></span>
+        <span class="proj-rule-diamond">✦</span>
+        <span class="proj-rule-line"></span>
+      </div>
+    </div>
+
+    <!-- Slider track wrapper -->
+    <div class="slider-outer px-6 relative z-10">
+      <div id="slider-track" class="slider-track">
+
+        <!-- Card 1 -->
+        <div class="project-card">
+          <div class="project-img-wrap">
+            <img src="imageproject2.png" alt="Project 1" class="project-img"/>
+            <div class="project-img-overlay">
+            </div>
+          </div>
+          <div class="project-body">
+            <span class="project-tag">Web Development</span>
+            <h3 class="project-title">Website Sistem Inventori</h3>
+            <p class="project-desc">Merancang sistem inventori berbasis web menggunakan framework Laravel dengan fitur CRUD (Create, Read, Update, Delete). Sistem ini menyajikan informasi lengkap terkait barang, kategori, dan stok, serta mengelola pencatatan transaksi barang masuk dan keluar secara efektif. Selain itu, dilengkapi fitur autentikasi (login dan registrasi) untuk memastikan akses yang aman dan terstruktur bagi pengguna.</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="project-card">
+          <div class="project-img-wrap">
+            <img src="imageproject3.png" alt="Project 2" class="project-img"/>
+            <div class="project-img-overlay">
+            </div>
+          </div>
+          <div class="project-body">
+            <span class="project-tag">Internet Of Things (IOT)</span>
+            <h3 class="project-title">Monitoring Suhu & Kelembaban</h3>
+            <p class="project-desc">Merancang simulasi sistem monitoring suhu dan kelembaban berbasis Internet of Things (IoT) menggunakan ESP32 dan sensor DHT22 melalui platform Wokwi. Data yang diperoleh dikirim secara real-time ke ThingsBoard dan divisualisasikan dalam bentuk dashboard interaktif berupa gauge untuk memantau nilai temperatur dan humidity secara langsung.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="project-card">
+          <div class="project-img-wrap">
+            <img src="imageprojcet1.png" alt="Project 3" class="project-img"/>
+            <div class="project-img-overlay">
+            </div>
+          </div>
+          <div class="project-body">
+            <span class="project-tag">Internet Of Things (IOT)</span>
+            <h3 class="project-title">RC-Car Wifi</h3>
+            <p class="project-desc">Merancang RC-Car berbasis WiFi menggunakan NodeMCU ESP8266 sebagai project tim. Kendaraan ini dapat dikendalikan secara real-time melalui aplikasi “ESP8266 WiFi Robot Car”, dengan proses pemrograman dilakukan melalui Arduino IDE. Untuk meningkatkan kemudahan penggunaan, proyek ini juga dilengkapi dengan dashboard kontrol sederhana berbasis MIT App Inventor.</p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="project-card">
+          <div class="project-img-wrap">
+            <img src="imageproject4.png" alt="Project 4" class="project-img"/>
+            <div class="project-img-overlay">
+            </div>
+          </div>
+          <div class="project-body">
+            <span class="project-tag">Internet Of Things (IOT)</span>
+            <h3 class="project-title">Air Purifier</h3>
+            <p class="project-desc">Merancang Air Purifier sebagai salah satu project tim berbasis IoT untuk meningkatkan kualitas udara dalam ruangan tertutup dengan mengurangi gas berbahaya. Sistem ini menggunakan sensor MQ-2 (hidrogen dan metana), MQ-7 (karbon monoksida), dan MQ-135 (amonia dan karbon dioksida) untuk mendeteksi gas di udara.</p>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="project-card">
+          <div class="project-img-wrap">
+            <img src="imageproject5.png" alt="Project 4" class="project-img"/>
+            <div class="project-img-overlay">
+            </div>
+          </div>
+          <div class="project-body">
+            <span class="project-tag">Infrastructure as a Service (IaaS)</span>
+            <h3 class="project-title">Membangun Jaringan Internet Perpustakaan</h3>
+            <p class="project-desc">Merancang simulasi jaringan internet perpustakaan dua lantai menggunakan MikroTik di GNS3 dengan topologi terpusat yang menghubungkan ruang baca dan laboratorium komputer. Simulasi ini dikembangkan sebagai project tim yang mencakup konfigurasi routing, IP addressing, distribusi melalui switch, serta dukungan koneksi nirkabel untuk menciptakan jaringan yang efisien dan scalable.</p>
+          </div>
+        </div>
+
+
+      </div><!-- /slider-track -->
+    </div>
+
+    <!-- Dot indicators + arrows at bottom right -->
+    <div class="slider-bottom-row relative z-10 px-6">
+      <div id="slider-dots" class="flex justify-center gap-2 w-full"></div>
+      <div class="slider-arrows-right">
+        <button id="prev-btn" class="slider-btn" aria-label="Previous">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <button id="next-btn" class="slider-btn" aria-label="Next">
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       CONTACT
+  ═══════════════════════════════════════════ -->
+  <section id="contact" class="py-24 px-6 contact-bg relative overflow-hidden">
+    <div class="deco-circle deco-3"></div>
+    <div class="max-w-6xl mx-auto relative z-10">
+
+      <div class="text-center mb-16 reveal-up">
+        <p class="font-sans text-xs tracking-[0.35em] text-white/70 uppercase mb-3">Get In Touch</p>
+        <h2 class="font-display text-5xl md:text-6xl font-light italic text-white mb-4">
+          Let's <span class="font-script text-white">Connect!</span>
+        </h2>
+        <p class="font-display text-lg text-white/70 font-light max-w-lg mx-auto">
+          Terbuka untuk kolaborasi, proyek menarik, dan percakapan yang bermakna.
+        </p>
+      </div>
+
+      <!-- Social Cards Row -->
+      <div class="grid sm:grid-cols-3 gap-5 mb-14 reveal-up">
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/dnzhsa_/" target="_blank" class="social-card group">
+          <div class="social-icon-wrap instagram-grad">
+            <i class="fab fa-instagram text-2xl text-white"></i>
+          </div>
+          <div>
+            <p class="font-sans text-xs tracking-widest text-rose uppercase mb-1">Instagram</p>
+            <p class="font-display text-lg font-light text-noir group-hover:text-rose transition-colors">dnzhsa_</p>
+          </div>
+          <i class="fas fa-arrow-right text-rose ml-auto self-center opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300"></i>
+        </a>
+
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/in/diandra-zhaskia-amelia-aa90b22a8/" target="_blank" class="social-card group">
+          <div class="social-icon-wrap linkedin-grad">
+            <i class="fab fa-linkedin-in text-2xl text-white"></i>
+          </div>
+          <div>
+            <p class="font-sans text-xs tracking-widest text-rose uppercase mb-1">LinkedIn</p>
+            <p class="font-display text-lg font-light text-noir group-hover:text-rose transition-colors"></p>
+          </div>
+          <i class="fas fa-arrow-right text-rose ml-auto self-center opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300"></i>
+        </a>
+
+        <!-- Email -->
+        <a href="mailto:ameliazhaskia@gmail.com" class="social-card group">
+          <div class="social-icon-wrap email-grad">
+            <i class="fas fa-envelope text-2xl text-white"></i>
+          </div>
+          <div>
+            <p class="font-sans text-xs tracking-widest text-rose uppercase mb-1">Email</p>
+            <p class="font-display text-lg font-light text-noir group-hover:text-rose transition-colors">ameliazhaskia.gmail.com</p>
+          </div>
+          <i class="fas fa-arrow-right text-rose ml-auto self-center opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300"></i>
+        </a>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form-wrap reveal-up">
+        <!-- Alert -->
+        <div id="form-alert" class="hidden form-alert mb-6" role="alert"></div>
+
+        <div class="contact-form-inner">
+          <div class="contact-form-deco"></div>
+          <h3 class="font-display text-3xl font-light italic text-noir mb-8">
+            Send <span class="font-script text-rose text-4xl">Message</span>
+          </h3>
+
+          <div id="contact-form" class="grid md:grid-cols-2 gap-6">
+            <div class="form-group">
+              <label class="form-label">Full Name <span class="text-rose">*</span></label>
+              <input id="f-name" type="text" class="form-input" placeholder="name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email <span class="text-rose">*</span></label>
+              <input id="f-email" type="email" class="form-input" placeholder="email" />
+            </div>
+            <div class="form-group md:col-span-2">
+              <label class="form-label">Subject <span class="text-rose">*</span></label>
+              <input id="f-subject" type="text" class="form-input" placeholder="about" />
+            </div>
+            <div class="form-group md:col-span-2">
+              <label class="form-label">Message <span class="text-rose">*</span></label>
+              <textarea id="f-message" class="form-input resize-none h-36" placeholder="enter your message"></textarea>
+            </div>
+            <div class="md:col-span-2">
+              <button onclick="handleFormSubmit()" class="btn-primary w-full sm:w-auto px-12">
+                <i class="fas fa-paper-plane mr-2"></i> Send
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="footer-bg py-10 px-6 text-center">
+    <div class="footer-inner">
+      <p class="font-script text-4xl text-blush mb-2">Thank You.</p>
+      <p class="font-sans text-xs tracking text-white/80 uppercase mb-1">@2026 · Diandra Zhaskia</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
