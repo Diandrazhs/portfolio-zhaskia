@@ -997,20 +997,24 @@ img  { display: block; max-width: 100%; }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Grid for dev & design */
+/* Grid for dev & design — 4 kolom, rata tengah */
 .skills-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.2rem;
+  justify-items: center;
+  max-width: 720px;
+  margin: 0 auto;
 }
 
-/* Grid for soft skills (wider) */
+/* Grid for soft skills — 4 kolom, rata tengah */
 .skills-grid-soft {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.2rem;
+  justify-items: center;
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 /* Individual skill item card */
@@ -1020,10 +1024,8 @@ img  { display: block; max-width: 100%; }
   align-items: center;
   justify-content: center;
   gap: .7rem;
-  /* Fluid width: minimum 120px, ideal 140px, maksimal sesuai kontainer */
-  flex: 1 1 120px;
+  width: 100%;
   max-width: 160px;
-  min-width: 100px;
   padding: 1.8rem .8rem;
   background: linear-gradient(145deg, #fff 0%, #fdf6f7 100%);
   border: 1px solid rgba(232,180,184,.25);
@@ -1142,10 +1144,13 @@ img  { display: block; max-width: 100%; }
   }
 
   /* Skill cards: 2 kolom di tablet */
+  .skills-grid,
+  .skills-grid-soft {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 420px;
+  }
   .skill-item-card {
-    flex: 1 1 calc(50% - 1.2rem);
-    max-width: calc(50% - 0.6rem);
-    min-width: 100px;
+    max-width: 100%;
   }
 
   .contact-form-inner { padding: 1.8rem 1.4rem; }
@@ -1170,10 +1175,14 @@ img  { display: block; max-width: 100%; }
   }
 
   /* Skill cards: 2 kolom rapat di HP kecil */
+  .skills-grid,
+  .skills-grid-soft {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 360px;
+    gap: 0.8rem;
+  }
   .skill-item-card {
-    flex: 1 1 calc(50% - 0.6rem);
-    max-width: calc(50% - 0.6rem);
-    min-width: 90px;
+    max-width: 100%;
     padding: 1.2rem .5rem;
   }
   .skill-icon { font-size: 1.8rem; }
@@ -1188,10 +1197,11 @@ img  { display: block; max-width: 100%; }
   .about-img { object-position: top center; }
 
   /* Skill cards: tetap 2 kolom tapi lebih compact */
+  .skills-grid,
+  .skills-grid-soft {
+    gap: 0.6rem;
+  }
   .skill-item-card {
-    flex: 1 1 calc(50% - 0.5rem);
-    max-width: calc(50% - 0.5rem);
-    min-width: 80px;
     padding: 1rem .4rem;
   }
   .skill-icon { font-size: 1.6rem; }
