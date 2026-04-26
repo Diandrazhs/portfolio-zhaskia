@@ -111,11 +111,9 @@ function initSlider() {
   let   dragOffset   = 0;
   let   totalSlides  = 1;
 
-  /* ── hitung cards per slide berdasarkan lebar layar ── */
+  /* ── selalu tampilkan 1 card per slide di semua ukuran layar ── */
   function getCardsPerSlide() {
-    if (window.innerWidth <= 640) return 1;
-    if (window.innerWidth <= 900) return 1;
-    return 2;
+    return 1;
   }
 
   /* ── get slide offset in px ── */

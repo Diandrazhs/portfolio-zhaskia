@@ -647,10 +647,10 @@ img  { display: block; max-width: 100%; }
   box-shadow: 0 0 10px rgba(212,134,140,.4);
 }
 
-/* Project cards — 2 per slide di layar besar, 1 per slide di mobile */
+/* Project cards — 1 card penuh per slide di semua ukuran layar */
 .project-card {
-  /* Desktop: 2 cards per slide */
-  flex: 0 0 calc(50% - 0.75rem);
+  /* Selalu 1 card full width per slide */
+  flex: 0 0 100%;
   min-width: 0;
   /* display flex column agar body bisa stretch mengisi sisa tinggi */
   display: flex;
@@ -665,17 +665,14 @@ img  { display: block; max-width: 100%; }
   height: auto;
 }
 
-/* Tablet & HP landscape (≤ 900px) */
+/* Tablet & HP (≤ 900px) — tetap 1 card full width */
 @media (max-width: 900px) {
-  .project-card { flex: 0 0 calc(80% - 0.75rem); }
+  .project-card { flex: 0 0 100%; }
 }
 
-/* HP portrait (≤ 640px) */
+/* HP portrait (≤ 640px) — tetap 1 card full width */
 @media (max-width: 640px) {
-  .project-card {
-    /* 1 card penuh per slide di HP portrait */
-    flex: 0 0 100%;
-  }
+  .project-card { flex: 0 0 100%; }
 }
 
 @media (max-width: 768px) {
@@ -693,22 +690,36 @@ img  { display: block; max-width: 100%; }
 .project-img-wrap {
   position: relative;
   overflow: hidden;
-  /* Tinggi gambar responsif pakai clamp agar tidak terlalu besar/kecil */
-  height: clamp(160px, 28vw, 260px);
+  width: 100%;
   flex-shrink: 0;
+  background: #f5dde0; /* placeholder warna blush saat gambar loading */
 }
-.project-img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.25,.46,.45,.94); }
-.project-card:hover .project-img { transform: scale(1.07); }
+.project-img {
+  width: 100%;
+  height: auto;         /* ikuti proporsi asli gambar, tidak terpotong */
+  max-height: 420px;    /* batas atas agar tidak terlalu jangkung di desktop */
+  display: block;
+  object-fit: contain;  /* tampilkan gambar penuh, tidak dipotong */
+  object-position: center center;
+  transition: transform .7s cubic-bezier(.25,.46,.45,.94);
+}
+.project-card:hover .project-img { transform: scale(1.04); }
 
-/* HP portrait — gambar sedikit lebih kecil agar teks lebih banyak ruang */
+/* Tablet (≤ 900px) */
+@media (max-width: 900px) {
+  .project-img { max-height: 360px; }
+}
+/* HP portrait (≤ 640px) */
 @media (max-width: 640px) {
-  .project-img-wrap { height: clamp(140px, 45vw, 220px); }
+  .project-img { max-height: 300px; }
 }
+/* HP kecil (≤ 480px) */
 @media (max-width: 480px) {
-  .project-img-wrap { height: clamp(130px, 44vw, 200px); }
+  .project-img { max-height: 260px; }
 }
+/* HP sangat kecil (≤ 360px) */
 @media (max-width: 360px) {
-  .project-img-wrap { height: clamp(120px, 42vw, 180px); }
+  .project-img { max-height: 220px; }
 }
 
 .project-img-overlay {
