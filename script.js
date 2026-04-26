@@ -133,13 +133,9 @@ function initSlider() {
     else if (index < 0)      currentIndex = totalCards - 1;
     else                     currentIndex = index;
 
-    const card    = cards[currentIndex];
-    const cardGap = 24; // matches CSS gap 1.5rem ≈ 24px
-    // Scroll position = sum of all card widths before this index + gaps
-    let scrollLeft = 0;
-    for (let i = 0; i < currentIndex; i++) {
-      scrollLeft += cards[i].offsetWidth + cardGap;
-    }
+    // Scroll position = card width × index (gap = 0, card tepat 100% lebar outer)
+    const cardWidth = cards[0] ? cards[0].offsetWidth : outer.offsetWidth;
+    const scrollLeft = cardWidth * currentIndex;
     outer.scrollTo({ left: scrollLeft, behavior: 'smooth' });
     updateDots();
   }

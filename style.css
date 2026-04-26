@@ -592,7 +592,7 @@ img  { display: block; max-width: 100%; }
 }
 
 .slider-outer {
-  /* scroll-snap: 1 card penuh per slide, tidak ada clip vertikal */
+  /* scroll-snap: 1 card penuh per slide, card di-center, tidak ada card lain yang terlihat */
   overflow-x: auto;
   overflow-y: visible;
   scroll-snap-type: x mandatory;
@@ -601,9 +601,11 @@ img  { display: block; max-width: 100%; }
   max-width: 860px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 24px 4px;
+  /* Hapus padding agar card mengisi penuh dan card berikutnya tidak terlihat */
+  padding: 0 0 4px;
   box-sizing: border-box;
   cursor: grab;
+  container-type: inline-size;
 }
 .slider-outer::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 .slider-outer:active { cursor: grabbing; }
@@ -611,8 +613,7 @@ img  { display: block; max-width: 100%; }
 .slider-track {
   display: flex;
   align-items: flex-start;      /* tinggi card ikuti konten masing-masing, tidak di-stretch paksa */
-  gap: 1.5rem;
-  /* Lebar track mengembang sesuai jumlah card */
+  gap: 0;
   width: max-content;
 }
 
@@ -651,19 +652,20 @@ img  { display: block; max-width: 100%; }
   box-shadow: 0 0 10px rgba(212,134,140,.4);
 }
 
-/* Project cards — 1 card penuh per slide, scroll-snap */
+/* Project cards — 1 card penuh per slide, scroll-snap center */
 .project-card {
   /*
-    Lebar card = lebar .slider-outer dikurangi padding kiri+kanan (2×24px = 48px).
-    Gunakan min() agar tidak pernah melebihi 812px di desktop,
-    dan menyesuaikan sempurna di layar kecil tanpa terpotong.
+    Lebar card = 100% lebar container (100cqi).
+    scroll-snap-align: center memastikan card tepat di tengah dan
+    card sebelum/sesudahnya tidak terlihat sama sekali.
   */
-  flex: 0 0 min(calc(100% - 0px), 812px);
-  width: min(calc(100% - 0px), 812px);
-  max-width: 812px;
+  flex: 0 0 100cqi;
+  width: 100cqi;
+  max-width: 796px;
   min-width: 0;
-  /* scroll-snap: card berhenti tepat di kiri viewport */
-  scroll-snap-align: start;
+  margin-right: 0;
+  /* scroll-snap: card berhenti tepat di tengah container */
+  scroll-snap-align: center;
   scroll-snap-stop: always;
   /* layout flex column agar body stretch */
   display: flex;
@@ -678,18 +680,23 @@ img  { display: block; max-width: 100%; }
   box-sizing: border-box;
 }
 
+/* Card terakhir tidak perlu margin kanan */
+.project-card:last-child {
+  margin-right: 0;
+}
+
 @media (max-width: 768px) {
   .slider-arrows-right { position: static; }
   .slider-bottom-row { flex-direction: column; gap: 1rem; }
-  .slider-outer { padding: 0 16px 4px; }
+  .slider-outer { padding: 0 0 4px; }
 }
 
 @media (max-width: 480px) {
-  .slider-outer { padding: 0 12px 4px; }
+  .slider-outer { padding: 0 0 4px; }
 }
 
 @media (max-width: 360px) {
-  .slider-outer { padding: 0 8px 4px; }
+  .slider-outer { padding: 0 0 4px; }
 }
 
 .project-card:hover {
@@ -1169,8 +1176,6 @@ img  { display: block; max-width: 100%; }
   .skill-icon { font-size: 1.8rem; }
   .skill-item-label { font-size: .55rem; letter-spacing: .1em; }
 
-  /* Slider padding lebih kecil di HP */
-  .slider-outer { padding: 0 12px 4px; }
 }
 
 /* HP sangat kecil (≤ 360px) */
@@ -1185,6 +1190,4 @@ img  { display: block; max-width: 100%; }
     padding: 1rem .4rem;
   }
   .skill-icon { font-size: 1.6rem; }
-
-  .slider-outer { padding: 0 8px 4px; }
 }
