@@ -94,43 +94,24 @@ function initScrollReveal() {
 
 
 /* ════════════════════════════════════════════════
-   5. PROJECT SLIDER — responsive cards per view
+   5. PROJECT SLIDER — scroll-snap, 1 card per slide
 ════════════════════════════════════════════════ */
 function initSlider() {
+  const outer    = document.querySelector('.slider-outer');
   const track    = document.getElementById('slider-track');
   const dotsWrap = document.getElementById('slider-dots');
   const prevBtn  = document.getElementById('prev-btn');
   const nextBtn  = document.getElementById('next-btn');
-  if (!track) return;
+  if (!track || !outer) return;
 
-  const cards        = Array.from(track.querySelectorAll('.project-card'));
-  const totalCards   = cards.length;
+  const cards      = Array.from(track.querySelectorAll('.project-card'));
+  const totalCards = cards.length;
   let   currentIndex = 0;
-  let   isDragging   = false;
-  let   startX       = 0;
-  let   dragOffset   = 0;
-  let   totalSlides  = 1;
-
-  /* ── selalu tampilkan 1 card per slide di semua ukuran layar ── */
-  function getCardsPerSlide() {
-    return 1;
-  }
-
-  /* ── get slide offset in px ── */
-  function getSlideOffset(index) {
-    const outer  = track.parentElement;
-    const gap    = 24;
-    const padH   = window.innerWidth <= 360 ? 8 : window.innerWidth <= 480 ? 12 : 24;
-    const pageW  = outer.clientWidth - (padH * 2);
-    return -(index * (pageW + gap));
-  }
 
   /* ── build dots ── */
   function buildDots() {
-    const cps = getCardsPerSlide();
-    totalSlides = Math.ceil(totalCards / cps);
     dotsWrap.innerHTML = '';
-    for (let i = 0; i < totalSlides; i++) {
+    for (let i = 0; i < totalCards; i++) {
       const dot = document.createElement('button');
       dot.className = `slider-dot-item${i === currentIndex ? ' active' : ''}`;
       dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
@@ -145,18 +126,43 @@ function initSlider() {
     });
   }
 
-  /* ── move slider ── */
+  /* ── move slider via scrollTo (scroll-snap handles snapping) ── */
   function goTo(index) {
-    const cps = getCardsPerSlide();
-    totalSlides = Math.ceil(totalCards / cps);
     // Wrap-around
-    if (index >= totalSlides) currentIndex = 0;
-    else if (index < 0)       currentIndex = totalSlides - 1;
-    else                      currentIndex = index;
-    track.style.transition = 'transform .6s cubic-bezier(.4,0,.2,1)';
-    track.style.transform  = `translateX(${getSlideOffset(currentIndex)}px)`;
+    if (index >= totalCards) currentIndex = 0;
+    else if (index < 0)      currentIndex = totalCards - 1;
+    else                     currentIndex = index;
+
+    const card    = cards[currentIndex];
+    const cardGap = 24; // matches CSS gap 1.5rem ≈ 24px
+    // Scroll position = sum of all card widths before this index + gaps
+    let scrollLeft = 0;
+    for (let i = 0; i < currentIndex; i++) {
+      scrollLeft += cards[i].offsetWidth + cardGap;
+    }
+    outer.scrollTo({ left: scrollLeft, behavior: 'smooth' });
     updateDots();
   }
+
+  /* ── sync dots when user swipes/scrolls manually ── */
+  let scrollTimer;
+  outer.addEventListener('scroll', () => {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      // Find which card is most visible
+      const outerLeft = outer.getBoundingClientRect().left;
+      let closestIdx  = 0;
+      let closestDist = Infinity;
+      cards.forEach((card, i) => {
+        const dist = Math.abs(card.getBoundingClientRect().left - outerLeft);
+        if (dist < closestDist) { closestDist = dist; closestIdx = i; }
+      });
+      if (closestIdx !== currentIndex) {
+        currentIndex = closestIdx;
+        updateDots();
+      }
+    }, 80);
+  }, { passive: true });
 
   /* ── arrow buttons ── */
   prevBtn?.addEventListener('click', () => goTo(currentIndex - 1));
@@ -168,44 +174,12 @@ function initSlider() {
     if (e.key === 'ArrowRight') goTo(currentIndex + 1);
   });
 
-  /* ── drag / swipe ── */
-  function onPointerDown(e) {
-    isDragging = true;
-    startX     = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
-    dragOffset = 0;
-    track.style.transition = 'none';
-  }
-
-  function onPointerMove(e) {
-    if (!isDragging) return;
-    const x    = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
-    dragOffset = x - startX;
-    track.style.transform = `translateX(${getSlideOffset(currentIndex) + dragOffset}px)`;
-  }
-
-  function onPointerUp() {
-    if (!isDragging) return;
-    isDragging = false;
-    if (dragOffset < -60)      goTo(currentIndex + 1);
-    else if (dragOffset > 60)  goTo(currentIndex - 1);
-    else                       goTo(currentIndex);
-  }
-
-  track.addEventListener('mousedown',  onPointerDown);
-  track.addEventListener('mousemove',  onPointerMove);
-  track.addEventListener('mouseup',    onPointerUp);
-  track.addEventListener('mouseleave', onPointerUp);
-  track.addEventListener('touchstart', onPointerDown, { passive: true });
-  track.addEventListener('touchmove',  onPointerMove, { passive: true });
-  track.addEventListener('touchend',   onPointerUp);
-
-  /* ── rebuild on resize ── */
+  /* ── rebuild dots on resize ── */
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
-      buildDots();
-      goTo(Math.min(currentIndex, totalSlides - 1));
+      goTo(Math.min(currentIndex, totalCards - 1));
     }, 200);
   });
 

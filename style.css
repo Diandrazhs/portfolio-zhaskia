@@ -592,24 +592,27 @@ img  { display: block; max-width: 100%; }
 }
 
 .slider-outer {
-  overflow: hidden;
-  cursor: grab;
-  max-width: 1400px;
+  /* scroll-snap: 1 card penuh per slide, tidak ada clip vertikal */
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;        /* Firefox */
+  max-width: 860px;
   margin: 0 auto;
-  /* Padding kiri-kanan agar card tidak mepet tepi */
-  padding: 0 24px;
-  /* box-sizing agar padding dihitung dalam lebar */
+  padding: 0 24px 4px;
   box-sizing: border-box;
+  cursor: grab;
 }
+.slider-outer::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 .slider-outer:active { cursor: grabbing; }
 
 .slider-track {
   display: flex;
-  /* align-items stretch agar card tingginya sama per baris (wajar untuk slider 2-per-slide) */
-  align-items: stretch;
+  align-items: flex-start;      /* tinggi card ikuti konten masing-masing, tidak di-stretch paksa */
   gap: 1.5rem;
-  transition: transform .65s cubic-bezier(.4,0,.2,1);
-  will-change: transform;
+  /* Lebar track mengembang sesuai jumlah card */
+  width: max-content;
 }
 
 /* Bottom row: dots centered top, arrows bottom-right */
@@ -647,32 +650,45 @@ img  { display: block; max-width: 100%; }
   box-shadow: 0 0 10px rgba(212,134,140,.4);
 }
 
-/* Project cards — 1 card penuh per slide di semua ukuran layar */
+/* Project cards — 1 card penuh per slide, scroll-snap */
 .project-card {
-  /* Selalu 1 card full width per slide */
-  flex: 0 0 100%;
+  /* Lebar card = lebar viewport slider (minus padding 2×24px) */
+  flex: 0 0 calc(100vw - 96px);
+  max-width: 812px;             /* tidak melebihi max-width slider-outer */
   min-width: 0;
-  /* display flex column agar body bisa stretch mengisi sisa tinggi */
+  /* scroll-snap: card berhenti tepat di kiri viewport */
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  /* layout flex column agar body stretch */
   display: flex;
   flex-direction: column;
   background: linear-gradient(145deg, rgba(255,255,255,.98) 0%, rgba(253,248,249,.96) 100%);
   border: 1px solid rgba(232,180,184,.15);
-  /* overflow visible di card utama agar teks tidak terpotong */
+  /* overflow visible agar teks tidak terpotong */
   overflow: visible;
   transition: transform .45s cubic-bezier(.25,.46,.45,.94), box-shadow .45s, border-color .45s;
   box-shadow: 0 4px 28px rgba(0,0,0,.22);
-  /* height auto — ikuti konten */
   height: auto;
 }
 
-/* Tablet & HP (≤ 900px) — tetap 1 card full width */
+/* Tablet (≤ 900px) */
 @media (max-width: 900px) {
-  .project-card { flex: 0 0 100%; }
+  .project-card { flex: 0 0 calc(100vw - 96px); }
 }
 
-/* HP portrait (≤ 640px) — tetap 1 card full width */
+/* HP portrait (≤ 640px) */
 @media (max-width: 640px) {
-  .project-card { flex: 0 0 100%; }
+  .project-card { flex: 0 0 calc(100vw - 72px); }
+}
+
+/* HP kecil (≤ 480px) */
+@media (max-width: 480px) {
+  .project-card { flex: 0 0 calc(100vw - 48px); }
+}
+
+/* HP sangat kecil (≤ 360px) */
+@media (max-width: 360px) {
+  .project-card { flex: 0 0 calc(100vw - 32px); }
 }
 
 @media (max-width: 768px) {
@@ -1159,7 +1175,7 @@ img  { display: block; max-width: 100%; }
   .skill-item-label { font-size: .55rem; letter-spacing: .1em; }
 
   /* Slider padding lebih kecil di HP */
-  .slider-outer { padding: 0 12px; }
+  .slider-outer { padding: 0 12px 4px; }
 }
 
 /* HP sangat kecil (≤ 360px) */
@@ -1175,5 +1191,5 @@ img  { display: block; max-width: 100%; }
   }
   .skill-icon { font-size: 1.6rem; }
 
-  .slider-outer { padding: 0 8px; }
+  .slider-outer { padding: 0 8px 4px; }
 }
